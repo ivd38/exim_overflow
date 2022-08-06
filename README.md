@@ -87,7 +87,7 @@ message_size_limit      = ${if def:sender_host_name {32M}{32M}}
 
 5. Run authorizative dns server for example.com
 
-6. Send email using exim
+6. Send email to your exim server
 ```
 
 Asan log attached. 
