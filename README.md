@@ -87,8 +87,7 @@ message_size_limit      = ${if def:sender_host_name {32M}{32M}}
 
 5. Run authorizative dns server for example.com
 
-6. From IP example.com  run t1.py to send test email:
-$ ./t1.py <exim_host>
+6. Send email using exim
 ```
 
 Asan log attached. 
