@@ -1,0 +1,58 @@
+================================================================
+==9390==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x603000000774 at pc 0x5569dc77dc11 bp 0x7ffe80407210 sp 0x7ffe80407200
+WRITE of size 8 at 0x603000000774 thread T0
+    #0 0x5569dc77dc10 in host_name_lookup /build-Linux-x86_64/host.c:1745
+    #1 0x5569dc861a4c in smtp_start_session /build-Linux-x86_64/smtp_in.c:2811
+    #2 0x5569dc69b07c in handle_smtp_call /build-Linux-x86_64/daemon.c:528
+    #3 0x5569dc69492b in daemon_go /build-Linux-x86_64/daemon.c:2594
+    #4 0x5569dc70f343 in main /build-Linux-x86_64/exim.c:4947
+    #5 0x7f5fa742c082 in __libc_start_main ../csu/libc-start.c:308
+    #6 0x5569dc66417d in _start (/build-Linux-x86_64/exim+0x13d17d)
+
+0x603000000774 is located 0 bytes to the right of 20-byte region [0x603000000760,0x603000000774)
+allocated by thread T0 here:
+    #0 0x7f5fa7e5f808 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cc:144
+    #1 0x5569dc897a8f in internal_store_malloc /build-Linux-x86_64/store.c:876
+    #2 0x5569dc89b119 in store_malloc_3 /build-Linux-x86_64/store.c:909
+    #3 0x5569dc77d56f in host_name_lookup /build-Linux-x86_64/host.c:1712
+    #4 0x5569dc861a4c in smtp_start_session /build-Linux-x86_64/smtp_in.c:2811
+    #5 0x5569dc69b07c in handle_smtp_call /build-Linux-x86_64/daemon.c:528
+    #6 0x5569dc69492b in daemon_go /build-Linux-x86_64/daemon.c:2594
+    #7 0x5569dc70f343 in main /build-Linux-x86_64/exim.c:4947
+    #8 0x7f5fa742c082 in __libc_start_main ../csu/libc-start.c:308
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /build-Linux-x86_64/host.c:1745 in host_name_lookup
+Shadow bytes around the buggy address:
+  0x0c067fff8090: fa fa 00 00 00 fa fa fa 00 00 00 fa fa fa 00 00
+  0x0c067fff80a0: 00 fa fa fa 00 00 00 fa fa fa 00 00 00 fa fa fa
+  0x0c067fff80b0: fd fd fd fd fa fa fd fd fd fa fa fa fd fd fd fa
+  0x0c067fff80c0: fa fa fd fd fd fa fa fa fd fd fd fa fa fa fd fd
+  0x0c067fff80d0: fd fa fa fa fd fd fd fd fa fa 00 00 00 00 fa fa
+=>0x0c067fff80e0: 00 00 00 04 fa fa 00 00 04 fa fa fa 00 00[04]fa
+  0x0c067fff80f0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c067fff8100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c067fff8110: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c067fff8120: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c067fff8130: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==9390==ABORTING
+
